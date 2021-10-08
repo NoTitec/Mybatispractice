@@ -7,15 +7,22 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class MyBoardService {
-    private final MyBoardDAO boardDAO;
+    private final MyBoardDAO boardDAO;//main에서 dao만들고 생성자로 가져옴
 
     public MyBoardService(MyBoardDAO boardDAO){this.boardDAO=boardDAO;}
 
     public List<BoardDTO> selectall(){//boarddao이용해 필요정보 가져옴
-        List<BoardDTO> all=boardDAO.selectall();
+        List<BoardDTO> all=boardDAO.selectallwithannotation();
         return all;
     }
-
+    public BoardDTO selectonewith_id(long num){
+        BoardDTO one=boardDAO.selectonewithannotation(num);
+        return one;
+    }
+    public List<BoardDTO> selectrecent_day(int day){
+        List<BoardDTO> list=boardDAO.selectRecentWithannotation(day);
+        return list;
+    }
     public String insertnewboard(){//미리 준비된 자료 insert하는 메소드
         BoardDTO nd=new BoardDTO();
         nd.setTitle("new row");
